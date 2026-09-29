@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  <meta name="theme-color" content="#08152f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="DompetKu">
+  <title>DompetKu — Keuangan Pribadi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+ <!--icon aplikasi-->
+<link rel="icon" type="image/png" href="icon.png">
+
+<!-- iPhone -->
+<link rel="apple-touch-icon" href="icon.png">
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+
+  <!-- Icon langsung dari CDN; tidak perlu download aset icon. -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+  <main class="app-shell">
+    <section id="homeView" class="view active-view">
+      <header class="topbar">
+        <div>
+          <span class="eyebrow" id="greeting">Selamat datang</span>
+          <h1>DompetKu</h1>
+        </div>
+        <button class="icon-btn soft" data-action="settings" aria-label="Pengaturan"><i data-lucide="settings-2"></i></button>
+      </header>
+
+      <div class="date-line"><i data-lucide="calendar-days"></i><span id="todayLabel">—</span></div>
+
+      <section class="hero-card">
+        <div class="hero-top">
+          <div>
+            <span class="muted-on-dark">Sisa budget</span>
+            <strong id="remainingMoney">Rp0</strong>
+          </div>
+          <div class="hero-icon"><i data-lucide="wallet-cards"></i></div>
+        </div>
+        <div class="hero-bottom">
+          <div><span class="muted-on-dark">Terpakai</span><b id="periodSpent">Rp0</b></div>
+          <div><span class="muted-on-dark">Budget</span><b id="periodBudget">Rp0</b></div>
+          <div><span class="muted-on-dark">Periode</span><b id="periodLabel">—</b></div>
+        </div>
+      </section>
+
+      <section class="card daily-card">
+        <div class="card-heading">
+          <div><span class="label">Batas hari ini</span><h2 id="dailyLimit">Rp0</h2></div>
+          <span class="status" id="statusBadge">Aman</span>
+        </div>
+        <div class="progress-track"><div id="progressBar" class="progress-fill"></div></div>
+        <div class="progress-meta"><span id="todaySpent">Terpakai Rp0</span><span id="todayRemaining">Sisa Rp0</span></div>
+      </section>
+
+      <div class="stat-grid">
+        <article class="stat-card"><div class="stat-icon mint"><i data-lucide="sun"></i></div><span>Hari ini</span><strong id="todayTotal">Rp0</strong></article>
+        <article class="stat-card"><div class="stat-icon blue"><i data-lucide="calendar-range"></i></div><span>Periode ini</span><strong id="periodTotal">Rp0</strong></article>
+      </div>
+
+      <button class="primary-action" data-action="add"><span class="plus-circle"><i data-lucide="plus"></i></span>Tambah pengeluaran</button>
+
+      <section class="section-block">
+        <div class="section-title"><div><span class="label">Aktivitas</span><h2>Pengeluaran terbaru</h2></div><button class="text-btn" data-action="history">Lihat semua</button></div>
+        <div id="recentList"></div>
+      </section>
+    </section>
+
+    <section id="historyView" class="view">
+      <header class="page-header"><div><span class="eyebrow">Semua transaksi</span><h1>Riwayat</h1></div><button class="icon-btn soft" data-action="add" aria-label="Tambah"><i data-lucide="plus"></i></button></header>
+      <div class="filter-row">
+        <div class="search-box"><i data-lucide="search"></i><input id="searchInput" type="search" placeholder="Cari transaksi..."></div>
+        <select id="categoryFilter" aria-label="Filter kategori"><option value="all">Semua</option></select>
+      </div>
+      <div id="historyList"></div>
+    </section>
+
+    <section id="settingsView" class="view">
+      <header class="page-header"><div><span class="eyebrow">Atur sesuai kebutuhan</span><h1>Pengaturan</h1></div></header>
+      <section class="card settings-card">
+        <div class="settings-title"><div class="settings-icon"><i data-lucide="wallet"></i></div><div><h2>Budget periode</h2><p>Atur tanggal mulai dan akhir sesuai siklus keuanganmu.</p></div></div>
+        <label>Jumlah budget</label><div class="money-field"><span>Rp</span><input id="budgetAmount" type="number" inputmode="numeric" min="1" placeholder="2500000"></div>
+        <div class="two-col"><div class="date-field"><label for="periodStart">Mulai</label><input id="periodStart" type="date"></div><div class="date-field"><label for="periodEnd">Selesai</label><input id="periodEnd" type="date"></div></div>
+        <button class="primary-action compact" data-action="save-settings">Simpan budget</button>
+      </section>
+      <section class="card settings-card">
+        <div class="settings-title"><div class="settings-icon purple"><i data-lucide="database-backup"></i></div><div><h2>Data lokal</h2><p>Data tetap tersimpan di browser pada perangkat ini.</p></div></div>
+        <div class="setting-row"><span><i data-lucide="info"></i> Penyimpanan</span><strong>LocalStorage</strong></div>
+        <button class="outline-action" data-action="reset"><i data-lucide="trash-2"></i> Hapus semua data</button>
+      </section>
+    </section>
+
+    <nav class="bottom-nav" aria-label="Navigasi utama">
+      <button data-nav="home" class="active"><i data-lucide="house"></i><span>Beranda</span></button>
+      <button data-action="add" class="nav-add" aria-label="Tambah pengeluaran"><span><i data-lucide="plus"></i></span></button>
+      <button data-nav="history"><i data-lucide="receipt-text"></i><span>Riwayat</span></button>
+    </nav>
+  </main>
+
+  <div class="modal-backdrop" id="expenseModal" aria-hidden="true">
+    <section class="sheet" role="dialog" aria-modal="true" aria-labelledby="expenseTitle">
+      <div class="sheet-handle"></div><header class="sheet-header"><div><span class="eyebrow">Catat transaksi</span><h2 id="expenseTitle">Tambah pengeluaran</h2></div><button class="icon-btn soft" data-close="expenseModal" aria-label="Tutup"><i data-lucide="x"></i></button></header>
+      <label>Nominal</label><div class="amount-input"><span>Rp</span><input id="expenseAmount" type="number" inputmode="numeric" min="1" placeholder="0"></div>
+      <label>Kategori</label><div id="categoryGrid" class="category-grid"></div>
+      <label>Catatan <small>opsional</small></label><input id="expenseNote" class="text-input" type="text" maxlength="80" placeholder="Contoh: makan siang">
+      <label>Tanggal</label><input id="expenseDate" class="text-input" type="date">
+      <button id="expenseSubmit" class="primary-action" data-action="submit-expense">Simpan pengeluaran</button>
+    </section>
+  </div>
+
+  <div class="modal-backdrop" id="detailModal" aria-hidden="true">
+    <section class="sheet small-sheet" role="dialog" aria-modal="true"><div class="sheet-handle"></div><header class="sheet-header"><div><span class="eyebrow">Detail transaksi</span><h2 id="detailTitle">Pengeluaran</h2></div><button class="icon-btn soft" data-close="detailModal"><i data-lucide="x"></i></button></header><div id="detailBody"></div></section>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="script.js"></script>
+</body>
+</html>
