@@ -1,3 +1,4 @@
+// Trigger GitHub Pages deployment
 {
   "name": "Dompetku",
   "short_name": "Dompetku",
