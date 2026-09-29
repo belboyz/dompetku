@@ -1,0 +1,239 @@
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Arial, sans-serif;
+    background: #f5f7fb;
+    color: #111827;
+    min-height: 100vh;
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+button, input, select { font: inherit; }
+button { border: none; cursor: pointer; }
+
+.app {
+    width: 100%;
+    max-width: 520px;
+    margin: auto;
+    padding: calc(18px + env(safe-area-inset-top)) 18px 100px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.greeting { margin: 0 0 4px; color: #64748b; font-size: 13px; }
+.header h1 { margin: 0; font-size: 28px; font-weight: 800; }
+
+.settings-btn {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: white; font-size: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,.06);
+}
+
+.balance-card {
+    padding: 24px; border-radius: 24px;
+    background: linear-gradient(135deg,#111827,#1e293b);
+    color: white; box-shadow: 0 12px 30px rgba(15,23,42,.15);
+    margin-bottom: 14px;
+}
+
+.balance-label { color: #cbd5e1; font-size: 14px; }
+.balance { font-size: 36px; font-weight: 800; margin: 8px 0 18px; letter-spacing: -1px; }
+
+.balance-info {
+    display: flex; justify-content: space-between;
+    padding-top: 14px; border-top: 1px solid rgba(255,255,255,.15);
+    color: #cbd5e1; font-size: 13px;
+}
+
+.daily-card {
+    background: white; border-radius: 22px; padding: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.05); margin-bottom: 14px;
+}
+
+.section-title { display: flex; justify-content: space-between; align-items: center; }
+.section-title small { color: #64748b; }
+.section-title h2 { margin: 6px 0 0; font-size: 24px; }
+
+.status {
+    padding: 7px 11px; border-radius: 20px; font-size: 12px; font-weight: 700;
+    background: #dcfce7; color: #166534;
+}
+.status.warning { background: #fef3c7; color: #92400e; }
+.status.danger { background: #fee2e2; color: #991b1b; }
+
+.progress-container {
+    width: 100%; height: 9px; background: #e5e7eb;
+    border-radius: 20px; overflow: hidden; margin-top: 20px;
+}
+.progress-bar {
+    height: 100%; width: 0%; border-radius: 20px;
+    background: #22c55e; transition: width .35s ease;
+}
+.progress-info {
+    display: flex; justify-content: space-between;
+    margin-top: 9px; color: #64748b; font-size: 12px;
+}
+
+.stats {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 12px; margin-bottom: 14px;
+}
+.stat-card {
+    background: white; border-radius: 18px; padding: 16px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.04);
+}
+.stat-card span { display: block; font-size: 20px; margin-bottom: 8px; }
+.stat-card small { display: block; color: #64748b; margin-bottom: 5px; }
+.stat-card strong { font-size: 17px; }
+
+.add-button {
+    width: 100%; height: 58px; border-radius: 18px;
+    background: #111827; color: white; font-weight: 700; font-size: 16px;
+    display: flex; justify-content: center; align-items: center; gap: 8px;
+    box-shadow: 0 8px 20px rgba(15,23,42,.18);
+    margin-bottom: 28px; transition: transform .15s;
+}
+.add-button:active { transform: scale(.97); }
+.add-button span { font-size: 24px; }
+
+.history-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 12px;
+}
+.history-header h2 { margin: 0; font-size: 19px; }
+.history-header button { background: none; color: #2563eb; font-size: 13px; }
+
+.transaction {
+    display: flex; align-items: center; gap: 12px;
+    padding: 15px 0; border-bottom: 1px solid #e5e7eb;
+}
+.transaction-icon {
+    width: 45px; height: 45px; display: flex; align-items: center;
+    justify-content: center; border-radius: 14px; background: #f1f5f9; font-size: 20px;
+}
+.transaction-info { flex: 1; min-width: 0; }
+.transaction-info strong { display: block; font-size: 14px; }
+.transaction-info small {
+    color: #94a3b8; font-size: 11px; white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis; display: block;
+}
+.transaction-amount { font-weight: 700; font-size: 14px; white-space: nowrap; }
+.delete-btn { background: none; color: #ef4444; font-size: 18px; padding: 5px; }
+
+.empty { text-align: center; padding: 40px 20px; color: #94a3b8; }
+.empty div { font-size: 42px; margin-bottom: 10px; }
+.empty p { margin: 0 0 5px; color: #64748b; font-weight: 600; }
+.empty small { font-size: 12px; }
+
+.bottom-nav {
+    position: fixed; left: 50%; bottom: 0; transform: translateX(-50%);
+    width: 100%; max-width: 520px; height: calc(70px + env(safe-area-inset-bottom));
+    padding: 8px 20px env(safe-area-inset-bottom);
+    background: rgba(255,255,255,.92); backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px); border-top: 1px solid #e5e7eb;
+    display: flex; justify-content: space-around; z-index: 20;
+}
+.bottom-nav button {
+    background: none; color: #94a3b8; display: flex; flex-direction: column;
+    align-items: center; gap: 3px; min-width: 70px;
+}
+.bottom-nav button span { font-size: 21px; }
+.bottom-nav button small { font-size: 10px; }
+.bottom-nav button.active { color: #111827; }
+
+.modal {
+    position: fixed; inset: 0; background: rgba(0,0,0,.45);
+    display: none; align-items: flex-end; z-index: 100;
+}
+.modal.show { display: flex; }
+
+.modal-content {
+    width: 100%; max-width: 520px; margin: auto auto 0;
+    background: white; border-radius: 28px 28px 0 0;
+    padding: 24px 20px calc(25px + env(safe-area-inset-bottom));
+    max-height: 90vh; overflow-y: auto; animation: slideUp .25s ease;
+}
+@keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+.modal-header {
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px;
+}
+.modal-header h2 { margin: 0; font-size: 21px; }
+.modal-header button {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: #f1f5f9; font-size: 22px;
+}
+
+.modal-content label {
+    display: block; margin: 17px 0 7px;
+    font-size: 13px; font-weight: 600; color: #475569;
+}
+
+.money-input {
+    display: flex; align-items: center; background: #f8fafc;
+    border: 1px solid #e2e8f0; border-radius: 14px; padding: 0 14px;
+}
+.money-input span { font-weight: 700; }
+.money-input input { border: none !important; background: transparent !important; flex: 1; }
+
+input, select {
+    width: 100%; height: 50px; border-radius: 14px;
+    border: 1px solid #e2e8f0; padding: 0 14px; outline: none;
+    background: #f8fafc; color: #111827;
+}
+input:focus, select:focus { border-color: #64748b; }
+
+.categories {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+}
+.categories button {
+    min-height: 65px; border-radius: 14px; background: #f8fafc;
+    border: 1px solid #e2e8f0; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; gap: 4px; font-size: 18px;
+}
+.categories button span { font-size: 10px; color: #64748b; }
+.categories button.selected { border-color: #111827; background: #e2e8f0; }
+
+.save-button {
+    width: 100%; height: 54px; border-radius: 15px;
+    background: #111827; color: white; font-weight: 700; margin-top: 22px;
+}
+.danger-button {
+    width: 100%; height: 50px; border-radius: 15px;
+    background: #fee2e2; color: #b91c1c; font-weight: 600; margin-top: 10px;
+}
+
+@media (max-width: 375px) {
+    .app { padding-left: 14px; padding-right: 14px; }
+    .balance { font-size: 31px; }
+    .stat-card { padding: 13px; }
+}
+
+@media (prefers-color-scheme: dark) {
+    body { background: #020617; color: #f8fafc; }
+    .settings-btn, .daily-card, .stat-card { background: #0f172a; color: #f8fafc; }
+    .greeting, .section-title small, .stat-card small, .progress-info, .transaction-info small { color: #94a3b8; }
+    .progress-container { background: #334155; }
+    .transaction { border-color: #1e293b; }
+    .transaction-icon { background: #1e293b; }
+    .bottom-nav { background: rgba(15,23,42,.92); border-color: #1e293b; }
+    .bottom-nav button.active { color: white; }
+    .modal-content { background: #0f172a; }
+    input, select, .categories button, .money-input {
+        background: #1e293b; color: white; border-color: #334155;
+    }
+    .categories button.selected { background: #334155; }
+}

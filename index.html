@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0f172a">
+    <title>DompetKu</title>
+    <link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/png" href="icon.png">
+
+<!-- iPhone -->
+<link rel="apple-touch-icon" href="icon.png">
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Dompetku">
+</head>
+<body>
+<div class="app">
+    <header class="header">
+        <div>
+            <p class="greeting">Keuangan Saya</p>
+            <h1>DompetKu</h1>
+        </div>
+        <button class="settings-btn" onclick="openSettings()">⚙️</button>
+    </header>
+
+    <section class="balance-card">
+        <div class="balance-label">Sisa uang</div>
+        <div class="balance" id="remainingMoney">Rp0</div>
+        <div class="balance-info">
+            <span id="periodLabel">Minggu ini</span>
+            <span id="periodRemaining">Rp0</span>
+        </div>
+    </section>
+
+    <section class="daily-card">
+        <div class="section-title">
+            <div>
+                <small>Batas pengeluaran hari ini</small>
+                <h2 id="dailyLimit">Rp0</h2>
+            </div>
+            <div class="status" id="statusBadge">Aman</div>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="progress-info">
+            <span id="todaySpent">Terpakai Rp0</span>
+            <span id="todayRemaining">Sisa Rp0</span>
+        </div>
+    </section>
+
+    <div class="stats">
+        <div class="stat-card">
+            <span>📅</span>
+            <small>Hari ini</small>
+            <strong id="todayTotal">Rp0</strong>
+        </div>
+        <div class="stat-card">
+            <span>📆</span>
+            <small>Minggu ini</small>
+            <strong id="weekTotal">Rp0</strong>
+        </div>
+    </div>
+
+    <button class="add-button" onclick="openExpenseModal()">
+        <span>＋</span> Tambah Pengeluaran
+    </button>
+
+    <section class="history">
+        <div class="history-header">
+            <h2>Pengeluaran Terbaru</h2>
+            <button onclick="showAllTransactions()">Lihat semua</button>
+        </div>
+        <div id="transactionList">
+            <div class="empty">
+                <div>💸</div>
+                <p>Belum ada pengeluaran</p>
+                <small>Catat pengeluaran pertamamu hari ini.</small>
+            </div>
+        </div>
+    </section>
+
+    <nav class="bottom-nav">
+        <button class="active">
+            <span>⌂</span><small>Beranda</small>
+        </button>
+        <button onclick="showAllTransactions()">
+            <span>☷</span><small>Riwayat</small>
+        </button>
+        <button onclick="openSettings()">
+            <span>⚙</span><small>Pengaturan</small>
+        </button>
+    </nav>
+</div>
+
+<div class="modal" id="expenseModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Tambah Pengeluaran</h2>
+            <button onclick="closeExpenseModal()">×</button>
+        </div>
+
+        <label>Nominal</label>
+        <div class="money-input">
+            <span>Rp</span>
+            <input type="number" id="expenseAmount" placeholder="0" inputmode="numeric">
+        </div>
+
+        <label>Kategori</label>
+        <div class="categories">
+            <button onclick="selectCategory(this,'Makan')">🍜<span>Makan</span></button>
+            <button onclick="selectCategory(this,'Transportasi')">🛵<span>Transportasi</span></button>
+            <button onclick="selectCategory(this,'Kuliah')">📚<span>Kuliah</span></button>
+            <button onclick="selectCategory(this,'Kos')">🏠<span>Kos</span></button>
+            <button onclick="selectCategory(this,'Belanja')">🛒<span>Belanja</span></button>
+            <button onclick="selectCategory(this,'Hiburan')">🎮<span>Hiburan</span></button>
+            <button onclick="selectCategory(this,'Lainnya')">📦<span>Lainnya</span></button>
+        </div>
+
+        <label>Catatan</label>
+        <input type="text" id="expenseNote" placeholder="Contoh: makan nasi goreng">
+
+        <button class="save-button" onclick="addExpense()">Simpan Pengeluaran</button>
+    </div>
+</div>
+
+<div class="modal" id="settingsModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Pengaturan Keuangan</h2>
+            <button onclick="closeSettings()">×</button>
+        </div>
+
+        <label>Mode anggaran</label>
+        <select id="budgetMode">
+            <option value="weekly">Mingguan</option>
+            <option value="monthly">Bulanan</option>
+        </select>
+
+        <label>Jumlah uang yang tersedia</label>
+        <input type="number" id="budgetAmount" placeholder="500000" inputmode="numeric">
+
+        <button class="save-button" onclick="saveSettings()">Simpan Pengaturan</button>
+        <button class="danger-button" onclick="resetAllData()">Hapus Semua Data</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
